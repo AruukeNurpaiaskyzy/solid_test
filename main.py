@@ -99,10 +99,10 @@
 # saver2.save(order)
 
 
+import csv
 from abc import ABC, abstractmethod
-import Cvs
 
-class CsvOrderSaver():
+class Order:
     def __init__(self):
         self.items = []
 
@@ -112,6 +112,26 @@ class CsvOrderSaver():
     def get_items(self):
         return self.items
 
+class OrderSaver(ABC):
+    @abstractmethod
+    def save(self, order: Order):
+        pass
 
+class CsvOrderSaver(OrderSaver):
+    def save(self, order: Order):
+        with open("order.csv", "w", newline='', encoding='utf-8') as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(["item"])  # заголовок столбца
+            for item in order.get_items():
+                writer.writerow([item])
+
+# Использование
+order = Order()
+order.add_item("Суп")
+order.add_item("Чай")
+order.add_item("Пицца")
+
+csv_saver = CsvOrderSaver()
+csv_saver.save(order)
 
 
