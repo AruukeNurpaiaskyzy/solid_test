@@ -56,10 +56,53 @@
 # saver.save_to_file(order)
 
 
-from abc import ABC, abstractmethod
-import json
+# from abc import ABC, abstractmethod
+# import json
 
-class Order:
+# class Order:
+#     def __init__(self):
+#         self.items = []
+
+#     def add_item(self, item):
+#         self.items.append(item)
+
+#     def get_items(self):
+#         return self.items
+
+
+# class OrderSaver(ABC):
+#     @abstractmethod
+#     def save(self, order: Order):
+#         pass
+
+
+# class TextOrderSaver(OrderSaver):
+#     def save(self, order: Order):
+#         with open("order.txt", "w") as f:
+#             for item in order.get_items():
+#                 f.write(f"{item}\n")
+
+
+# class JsonOrderSaver(OrderSaver):
+#     def save(self, order: Order):
+#         with open("order.json", "w") as f:
+#             json.dump(order.get_items(), f)
+
+# order = Order()
+# order.add_item("Суп")
+# order.add_item("Чай")
+
+# saver = JsonOrderSaver()
+# saver.save(order)
+
+# saver2 = TextOrderSaver()
+# saver2.save(order)
+
+
+from abc import ABC, abstractmethod
+import Cvs
+
+class CsvOrderSaver():
     def __init__(self):
         self.items = []
 
@@ -70,30 +113,5 @@ class Order:
         return self.items
 
 
-class OrderSaver(ABC):
-    @abstractmethod
-    def save(self, order: Order):
-        pass
 
 
-class TextOrderSaver(OrderSaver):
-    def save(self, order: Order):
-        with open("order.txt", "w") as f:
-            for item in order.get_items():
-                f.write(f"{item}\n")
-
-
-class JsonOrderSaver(OrderSaver):
-    def save(self, order: Order):
-        with open("order.json", "w") as f:
-            json.dump(order.get_items(), f)
-
-order = Order()
-order.add_item("Суп")
-order.add_item("Чай")
-
-saver = JsonOrderSaver()
-saver.save(order)
-
-saver2 = TextOrderSaver()
-saver2.save(order)
